@@ -6,17 +6,18 @@
 ## Download
 
 ``` gradle
-	allprojects {
-		repositories {
-			...
-			maven { url 'https://jitpack.io' }
-		}
+	
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
 	}
+}
   
-  dependencies {
-      implementation 'com.google.android.play:core:1.6.3'
-	    implementation 'com.github.EdgeJH:InAppUpdate:Tag'
-	}
+dependencies {
+	implementation 'com.google.android.play:core:1.6.3'
+	implementation 'com.github.EdgeJH:InAppUpdate:Tag'
+}
 
 ```
 
