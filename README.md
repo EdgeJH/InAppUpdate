@@ -35,7 +35,7 @@ allprojects {
   
 dependencies {
 	implementation 'com.google.android.play:core:1.6.3'
-	implementation 'com.github.EdgeJH:InAppUpdate:1.0'
+	implementation 'com.github.EdgeJH:InAppUpdate:1.0.1'
 }
 
 ```
@@ -57,8 +57,7 @@ dependencies {
                 .setActivity(this)
                 .setUpdateType(UpdateType.FLEXIBLE)
                 .setSnackBarMessage("업데이트가 완료 되었습니다")
-                .setSnackbarBtnColor(ContextCompat.getColor(this,R.color.colorAccent))
-                .build();
+                .setSnackbarBtnColor(ContextCompat.getColor(this,R.color.colorAccent));
          final UpdateManager updateManager = builder.create();
          updateManager.setUpdateListener(new UpdateListener() {
              @Override
@@ -92,8 +91,7 @@ dependencies {
         setContentView(R.layout.activity_immediate_update);
         UpdateManager.Builder builder = new UpdateManager.Builder()
                 .setActivity(this)
-                .setUpdateType(UpdateType.IMMEDIATE)
-                .build();
+                .setUpdateType(UpdateType.IMMEDIATE);
         final UpdateManager updateManager = builder.create();
         updateManager.setUpdateListener(new UpdateListener() {
             @Override
