@@ -36,7 +36,6 @@ class UpdateManager private constructor(private val activity: Activity,
         fun setUpdateType(updateType: UpdateType) = apply { this.updateType = updateType }
         fun setSnackBarMessage(snackBarMessage : String) = apply { this.snackBarMessage = snackBarMessage }
         fun setSnackbarBtnColor(snackbarBtnColor : Int) = apply { this.snackbarBtnColor = snackbarBtnColor }
-        fun build() = this
         fun create() = UpdateManager(this)
     }
 

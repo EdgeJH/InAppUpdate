@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 
 import com.edge.inappupdate.UpdateListener;
 import com.edge.inappupdate.UpdateManager;
@@ -23,10 +22,7 @@ public class ImmediateUpdateActivity extends AppCompatActivity {
         setContentView(R.layout.activity_immediate_update);
         UpdateManager.Builder builder = new UpdateManager.Builder()
                 .setActivity(this)
-                .setUpdateType(UpdateType.IMMEDIATE)
-                .setSnackBarMessage("업데이트가 완료 되었습니다")
-                .setSnackbarBtnColor(ContextCompat.getColor(this, R.color.colorAccent))
-                .build();
+                .setUpdateType(UpdateType.IMMEDIATE);
         final UpdateManager updateManager = builder.create();
         updateManager.setUpdateListener(new UpdateListener() {
             @Override

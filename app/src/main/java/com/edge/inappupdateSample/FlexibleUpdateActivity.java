@@ -25,13 +25,15 @@ public class FlexibleUpdateActivity extends AppCompatActivity {
                 .setActivity(this)
                 .setUpdateType(UpdateType.FLEXIBLE)
                 .setSnackBarMessage("업데이트가 완료 되었습니다")
-                .setSnackbarBtnColor(ContextCompat.getColor(this,R.color.colorAccent))
-                .build();
+                .setSnackbarBtnColor(ContextCompat.getColor(this,R.color.colorAccent));
          final UpdateManager updateManager = builder.create();
          updateManager.setUpdateListener(new UpdateListener() {
              @Override
              public void onUpdateChecked(@NotNull AppUpdateInfo appUpdateInfo, boolean updateAvailable) {
-                 updateManager.update(appUpdateInfo);
+                 if (updateAvailable){
+                     updateManager.update(appUpdateInfo);
+                 }
+
              }
 
              @Override
