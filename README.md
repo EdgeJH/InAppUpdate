@@ -37,7 +37,7 @@ allprojects {
   
 dependencies {
 	implementation 'com.google.android.play:core:1.6.3'
-	implementation 'com.github.EdgeJH:InAppUpdate:1.0.1'
+	implementation 'com.github.EdgeJH:InAppUpdate:1.0.2'
 }
 
 ```
