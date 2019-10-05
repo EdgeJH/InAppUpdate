@@ -1,3 +1,5 @@
+
+[![GitHub license](https://img.shields.io/github/license/dcendents/android-maven-gradle-plugin.svg)](http://www.apache.org/licenses/LICENSE-2.0.html)
 [![](https://jitpack.io/v/EdgeJH/InAppUpdate.svg)](https://jitpack.io/#EdgeJH/InAppUpdate)
 
 # Android InAppUpdate
