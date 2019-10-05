@@ -29,8 +29,6 @@ class UpdateManager private constructor(private val activity: Activity,
         private set
         var snackbarBtnColor : Int = Color.YELLOW
         private set
-        var updateListener : UpdateListener? = null
-        private set
 
         fun setActivity(activity: Activity) = apply {  this.activity = activity }
         fun setUpdateType(updateType: UpdateType) = apply { this.updateType = updateType }

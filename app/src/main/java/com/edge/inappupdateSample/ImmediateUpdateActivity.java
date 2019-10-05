@@ -27,7 +27,9 @@ public class ImmediateUpdateActivity extends AppCompatActivity {
         updateManager.setUpdateListener(new UpdateListener() {
             @Override
             public void onUpdateChecked(@NotNull AppUpdateInfo appUpdateInfo, boolean updateAvailable) {
-                updateManager.update(appUpdateInfo);
+                if (updateAvailable){
+                    updateManager.update(appUpdateInfo);
+                }
             }
 
             @Override
