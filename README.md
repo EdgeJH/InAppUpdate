@@ -5,7 +5,7 @@
 
 ## Download
 
-`` gradle
+``` gradle
 	allprojects {
 		repositories {
 			...
@@ -18,7 +18,7 @@
 	    implementation 'com.github.EdgeJH:InAppUpdate:Tag'
 	}
 
-``
+```
 
 
 
@@ -26,7 +26,7 @@
 
 #### Flexible Update
 
-`` java
+``` java
 
  @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,13 +59,13 @@
         updateManager.checkUpdate();
     }
 
-``
+```
 
 
 #### Immediate Update
 
 
-`` java
+``` java
 @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -115,5 +115,5 @@
 
 
 
-``
+```
 
