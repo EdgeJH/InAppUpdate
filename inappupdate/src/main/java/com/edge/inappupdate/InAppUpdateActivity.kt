@@ -1,5 +1,6 @@
 package com.edge.inappupdate
 
+import android.app.Activity
 import android.os.Bundle
 import androidx.annotation.ColorRes
 import androidx.appcompat.app.AppCompatActivity
@@ -11,20 +12,11 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
 
     private lateinit var updateManager : UpdateManager
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initializeUpdateManager()
-    }
 
-    override fun onResume() {
-        super.onResume()
-        checkUpdate()
-    }
-
-    private fun initializeUpdateManager(){
+    private fun initializeUpdateManager(activity: Activity){
         val builder =
             UpdateManager.Builder()
-                .setActivity(this)
+                .setActivity(activity)
                 .setUpdateType(UpdateType.FLEXIBLE)
         updateManager = builder.create()
         updateManager.updateListener = object : UpdateListener {
@@ -42,7 +34,8 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkUpdate(){
+    fun checkUpdate(activity: Activity){
+        initializeUpdateManager(activity)
         updateManager.checkUpdate()
     }
 

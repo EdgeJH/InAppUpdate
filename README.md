@@ -56,6 +56,7 @@ class InheritInAppUpdateActivity : InAppUpdateActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_inherit_in_app_update)
         initView()
+        checkUpdate(this)
     }
 
     override fun onUpdateAvailable(appUpdateInfo: AppUpdateInfo, updateAvailable: Boolean) {
