@@ -6,34 +6,26 @@ import com.google.android.material.snackbar.Snackbar
 import com.google.android.play.core.appupdate.AppUpdateInfo
 import com.google.android.play.core.appupdate.AppUpdateManager
 import com.google.android.play.core.appupdate.AppUpdateManagerFactory
+import com.google.android.play.core.install.InstallState
 import com.google.android.play.core.install.InstallStateUpdatedListener
 import com.google.android.play.core.install.model.AppUpdateType
-import com.google.android.play.core.install.model.InstallStatus
 import com.google.android.play.core.install.model.UpdateAvailability
 import com.google.android.play.core.tasks.Task
 
 
 class UpdateManager private constructor(private val activity: Activity,
-                                        updateType : UpdateType,
-                                        private val snackBarMessage : String?,
-                                        private val snackbarBtnColor : Int = Color.YELLOW) {
+                                        updateType : UpdateType) {
 
-    constructor(builder : Builder) : this(builder.activity!!,builder.updateType!!,builder.snackBarMessage,builder.snackbarBtnColor)
+    constructor(builder : Builder) : this(builder.activity!!,builder.updateType!!)
 
     class Builder {
         var activity: Activity? = null
         private set
         var updateType : UpdateType? = null
         private set
-        var snackBarMessage : String? = null
-        private set
-        var snackbarBtnColor : Int = Color.YELLOW
-        private set
-
         fun setActivity(activity: Activity) = apply {  this.activity = activity }
         fun setUpdateType(updateType: UpdateType) = apply { this.updateType = updateType }
-        fun setSnackBarMessage(snackBarMessage : String) = apply { this.snackBarMessage = snackBarMessage }
-        fun setSnackbarBtnColor(snackbarBtnColor : Int) = apply { this.snackbarBtnColor = snackbarBtnColor }
+
         fun create() = UpdateManager(this)
     }
 
@@ -61,10 +53,8 @@ class UpdateManager private constructor(private val activity: Activity,
             }
     }
 
-    private val listener = InstallStateUpdatedListener { state ->
-        if (state.installStatus() == InstallStatus.DOWNLOADED){
-            popupSnackbarForCompleteUpdate()
-        }
+    private val listener = InstallStateUpdatedListener { state: InstallState  ->
+        updateListener?.onUpdateState(state,state.bytesDownloaded(),state.totalBytesToDownload())
     }
 
     fun update(appUpdateInfo: AppUpdateInfo){
@@ -78,20 +68,24 @@ class UpdateManager private constructor(private val activity: Activity,
             UPDATE_REQ_CODE)
     }
 
-    private fun popupSnackbarForCompleteUpdate() {
-        val message = snackBarMessage ?: activity.getString(R.string.update_message)
+    fun completeUpdate(){
+        appUpdateManager.unregisterListener(listener)
+        appUpdateManager.completeUpdate()
+    }
+
+
+    fun showSnackBarForCompleteUpdate(updateMessage: String?, color: Int) {
+        val message = updateMessage ?: activity.getString(R.string.update_message)
         Snackbar.make(
             activity.window.decorView,
             message,
             Snackbar.LENGTH_INDEFINITE
         ).apply {
             setAction("재시작") {
-                if (type == AppUpdateType.FLEXIBLE){
-                    appUpdateManager.unregisterListener(listener)
-                }
-                appUpdateManager.completeUpdate()
+                completeUpdate()
             }
-            setActionTextColor(snackbarBtnColor)
+            setBackgroundTint(Color.TRANSPARENT)
+            setActionTextColor(color)
             show()
         }
     }

@@ -36,8 +36,8 @@ allprojects {
 }
   
 dependencies {
-	implementation 'com.google.android.play:core:1.6.3'
-	implementation 'com.github.EdgeJH:InAppUpdate:1.0.1'
+	implementation 'com.google.android.play:core:1.7.2'
+	implementation 'com.github.EdgeJH:InAppUpdate:1.1.0'
 }
 
 ```
@@ -46,37 +46,77 @@ dependencies {
 
 ## Usage
 
+#### Inherit Custom Update
+
+``` kotlin
+
+class InheritInAppUpdateActivity : InAppUpdateActivity() {
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_inherit_in_app_update)
+        initView()
+    }
+
+    override fun onUpdateAvailable(appUpdateInfo: AppUpdateInfo, updateAvailable: Boolean) {
+        if (updateAvailable){
+            startUpdate(appUpdateInfo)
+        }
+    }
+
+    override fun onUpdateState(installState: InstallState, bytesDownLoaded: Long, totalBytesToDownLoaded: Long) {
+        when(installState.installStatus()){
+            InstallStatus.DOWNLOADING->{
+               //in app update downloading progess
+            }
+            InstallStatus.DOWNLOADED->{
+                restart()
+            }
+        }
+    }
+
+    override fun onUpdateCheckFailure(exception: Exception?) {
+        Toast.makeText(this,"Update Failure ${exception.message}", Toast.LENGTH_SHORT).show()
+    }
+
+}
+```
+
+
+
 #### Flexible Update
 
 ``` java
 
- @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_flexible);
+        UpdateManager.Builder builder = new UpdateManager.Builder()
+                        .setActivity(this)
+                        .setUpdateType(UpdateType.FLEXIBLE);
+        final UpdateManager updateManager = builder.create();
+        updateManager.setUpdateListener(new UpdateListener() {
+            @Override
+            public void onUpdateChecked(@NotNull AppUpdateInfo appUpdateInfo, boolean updateAvailable) {
+                if (updateAvailable){
+                    updateManager.update(appUpdateInfo);
+                }
 
-         UpdateManager.Builder builder = new UpdateManager.Builder()
-                .setActivity(this)
-                .setUpdateType(UpdateType.FLEXIBLE)
-                .setSnackBarMessage("업데이트가 완료 되었습니다")
-                .setSnackbarBtnColor(ContextCompat.getColor(this,R.color.colorAccent));
-         final UpdateManager updateManager = builder.create();
-         updateManager.setUpdateListener(new UpdateListener() {
-             @Override
-             public void onUpdateChecked(@NotNull AppUpdateInfo appUpdateInfo, boolean updateAvailable) {
-                 if (updateAvailable){
-                     updateManager.update(appUpdateInfo);
-                 }
-                
-             }
-
-             @Override
-             public void onUpdateCheckFailure(@Nullable Exception exception) {
-                 if (exception!=null){
-                     Toast.makeText(FlexibleUpdateActivity.this, "error : " +  exception.getMessage(), Toast.LENGTH_SHORT).show();
-                 }
-             }
-         });
+            }
+            @Override
+            public void onUpdateCheckFailure(@Nullable Exception exception) {
+                if (exception!=null){
+                    Toast.makeText(FlexibleUpdateActivity.this, "error : " +  exception.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            }
+            @Override
+            public void onUpdateState(@NotNull InstallState installState, long bytesDownLoaded, long totalBytesToDownLoaded) {
+                if (installState.installStatus()== InstallStatus.DOWNLOADED){
+                    updateManager.showSnackBarForCompleteUpdate("업데이트가 완료 되었습니다",ContextCompat.getColor(FlexibleUpdateActivity.this,R.color.colorAccent));
+                }
+            }
+        });
         updateManager.checkUpdate();
     }
 
@@ -87,20 +127,20 @@ dependencies {
 
 
 ``` java
-@Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_immediate_update);
         UpdateManager.Builder builder = new UpdateManager.Builder()
-                .setActivity(this)
-                .setUpdateType(UpdateType.IMMEDIATE);
+                        .setActivity(this)
+                        .setUpdateType(UpdateType.IMMEDIATE);
         final UpdateManager updateManager = builder.create();
         updateManager.setUpdateListener(new UpdateListener() {
             @Override
             public void onUpdateChecked(@NotNull AppUpdateInfo appUpdateInfo, boolean updateAvailable) {
-	    	 if (updateAvailable){
-                     updateManager.update(appUpdateInfo);
-                 }
+                if (updateAvailable){
+                    updateManager.update(appUpdateInfo);
+                }
             }
 
             @Override
@@ -109,10 +149,14 @@ dependencies {
                     Toast.makeText(ImmediateUpdateActivity.this, "error : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
+
+            @Override
+            public void onUpdateState(@NotNull InstallState installState, long bytesDownLoaded, long totalBytesToDownLoaded) {
+
+            }
         });
         updateManager.checkUpdate();
     }
-
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {

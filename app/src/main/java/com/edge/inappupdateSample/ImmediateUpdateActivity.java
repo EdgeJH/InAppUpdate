@@ -10,6 +10,7 @@ import com.edge.inappupdate.UpdateListener;
 import com.edge.inappupdate.UpdateManager;
 import com.edge.inappupdate.UpdateType;
 import com.google.android.play.core.appupdate.AppUpdateInfo;
+import com.google.android.play.core.install.InstallState;
 
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -37,6 +38,11 @@ public class ImmediateUpdateActivity extends AppCompatActivity {
                 if (exception != null) {
                     Toast.makeText(ImmediateUpdateActivity.this, "error : " + exception.getMessage(), Toast.LENGTH_SHORT).show();
                 }
+            }
+
+            @Override
+            public void onUpdateState(@NotNull InstallState installState, long bytesDownLoaded, long totalBytesToDownLoaded) {
+
             }
         });
         updateManager.checkUpdate();
