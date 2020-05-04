@@ -112,5 +112,5 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
      * @version 1.1.0
      * @see None
      */
-    abstract fun onUpdateCheckFailure(exception: Exception?)
+    abstract fun onUpdateFailure(exception: Exception?)
 }

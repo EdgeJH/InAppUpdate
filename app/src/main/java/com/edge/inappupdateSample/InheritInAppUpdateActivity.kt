@@ -46,7 +46,7 @@ class InheritInAppUpdateActivity : InAppUpdateActivity() {
     }
 
 
-    override fun onUpdateCheckFailure(exception: Exception?) {
+    override fun onUpdateFailure(exception: Exception?) {
         Toast.makeText(this,"업데이트 체크에 실패하였습니다", Toast.LENGTH_SHORT).show()
     }
 
