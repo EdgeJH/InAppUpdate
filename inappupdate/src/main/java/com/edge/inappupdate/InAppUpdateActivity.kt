@@ -33,7 +33,7 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
             }
 
             override fun onUpdateCheckFailure(exception: Exception?) {
-                onUpdateCheckFailure(exception)
+                onUpdateFailure(exception)
             }
 
             override fun onUpdateState(installState: InstallState, bytesDownLoaded: Long, totalBytesToDownLoaded: Long) {
