@@ -29,7 +29,7 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
             }
 
             override fun onUpdateState(installState: InstallState, bytesDownLoaded: Long, totalBytesToDownLoaded: Long) {
-                onUpdateState(installState, bytesDownLoaded, totalBytesToDownLoaded)
+                onInstallState(installState, bytesDownLoaded, totalBytesToDownLoaded)
             }
         }
     }
@@ -84,7 +84,7 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
      * @version 1.1.0
      * @see None
      */
-    abstract fun onUpdateState(installState: InstallState, bytesDownLoaded: Long, totalBytesToDownLoaded: Long)
+    abstract fun onInstallState(installState: InstallState, bytesDownLoaded: Long, totalBytesToDownLoaded: Long)
 
     /**
      * 업데이트 가능 여부 콜백 메소드 입니다.

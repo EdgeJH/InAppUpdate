@@ -1,7 +1,7 @@
 package com.edge.inappupdateSample;
 
 import android.os.Bundle;
-import android.widget.Toast;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -37,7 +37,7 @@ public class FlexibleUpdateActivity extends AppCompatActivity {
              @Override
              public void onUpdateCheckFailure(@Nullable Exception exception) {
                  if (exception!=null){
-                     Toast.makeText(FlexibleUpdateActivity.this, "error : " +  exception.getMessage(), Toast.LENGTH_SHORT).show();
+                     Log.d("abcd", "error : " +  exception.getMessage());
                  }
              }
              @Override

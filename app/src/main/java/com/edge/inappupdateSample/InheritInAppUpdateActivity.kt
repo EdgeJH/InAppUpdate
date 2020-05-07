@@ -35,7 +35,7 @@ class InheritInAppUpdateActivity : InAppUpdateActivity() {
     }
 
 
-    override fun onUpdateState(installState: InstallState, bytesDownLoaded: Long, totalBytesToDownLoaded: Long) {
+    override fun onInstallState(installState: InstallState, bytesDownLoaded: Long, totalBytesToDownLoaded: Long) {
         when(installState.installStatus()){
             InstallStatus.DOWNLOADING->{
                 setProgressPercent(bytesDownLoaded, totalBytesToDownLoaded)
