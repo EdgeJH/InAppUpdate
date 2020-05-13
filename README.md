@@ -6,6 +6,9 @@
 
 안드로이드 어플리케이션의 버전 관리를 위하여 구글에서 제공하는 In-App-Support를 좀 더 사용하기 쉽도록 만든 라이브러리 입니다.
 
+#### Custom InApp Update
+![](inappupdate.gif)
+
 #### Flexible Update
 ![](flexible_flow.png)
 
