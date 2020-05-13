@@ -52,7 +52,7 @@ class InheritInAppUpdateActivity : InAppUpdateActivity() {
     }
 
     private fun setProgressPercent( bytesDownLoaded: Long, totalBytesToDownLoaded: Long){
-        val downLoadPercent = bytesDownLoaded/totalBytesToDownLoaded*100
+        val downLoadPercent = bytesDownLoaded.toDouble()/totalBytesToDownLoaded.toDouble()*100
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             progressBar.setProgress(downLoadPercent.toInt(),true)
         } else{

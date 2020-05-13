@@ -12,11 +12,15 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
 
     private lateinit var updateManager : UpdateManager
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        initializeUpdateManager()
+    }
 
-    private fun initializeUpdateManager(activity: Activity){
+    private fun initializeUpdateManager(){
         val builder =
             UpdateManager.Builder()
-                .setActivity(activity)
+                .setActivity(this)
                 .setUpdateType(UpdateType.FLEXIBLE)
         updateManager = builder.create()
         updateManager.updateListener = object : UpdateListener {
@@ -34,8 +38,7 @@ abstract class InAppUpdateActivity : AppCompatActivity() {
         }
     }
 
-    fun checkUpdate(activity: Activity){
-        initializeUpdateManager(activity)
+    fun checkUpdate(){
         updateManager.checkUpdate()
     }
 
